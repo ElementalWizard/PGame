@@ -24,14 +24,10 @@ import java.io.InputStream;
 public class GameSetUp implements Runnable {
     private DisplayScreen display;
     private int width, height;
-    public String title;
+    private String title;
 
     private boolean running = false;
     private Thread thread;
-
-    private BufferStrategy bs;
-    private Graphics g;
-
 
 
     //Input
@@ -46,16 +42,9 @@ public class GameSetUp implements Runnable {
     public State menuState;
     public State pauseState;
 
-    //Res.music
-    private InputStream audioFile;
-    private AudioInputStream audioStream;
-    private AudioFormat format;
-    private DataLine.Info info;
-    private Clip audioClip;
-
     private BufferedImage loading;
 
-    public GameSetUp(String title, int width, int height){
+    GameSetUp(String title, int width, int height){
 
         this.width = width;
         this.height = height;
@@ -86,19 +75,16 @@ public class GameSetUp implements Runnable {
 
         try {
 
-            audioFile = getClass().getResourceAsStream("/music/nature.wav");
-            audioStream = AudioSystem.getAudioInputStream(audioFile);
-            format = audioStream.getFormat();
-            info = new DataLine.Info(Clip.class, format);
-            audioClip = (Clip) AudioSystem.getLine(info);
+            //Res.music
+            InputStream audioFile = getClass().getResourceAsStream("/music/nature.wav");
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
+            AudioFormat format = audioStream.getFormat();
+            DataLine.Info info = new DataLine.Info(Clip.class, format);
+            Clip audioClip = (Clip) AudioSystem.getLine(info);
             audioClip.open(audioStream);
             audioClip.loop(Clip.LOOP_CONTINUOUSLY);
 
-        } catch (UnsupportedAudioFileException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (LineUnavailableException e) {
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();
         }
     }
@@ -107,7 +93,7 @@ public class GameSetUp implements Runnable {
         gameState = new GameState(handler);
     }
 
-    public synchronized void start(){
+    synchronized void start(){
         if(running)
             return;
         running = true;
@@ -122,7 +108,7 @@ public class GameSetUp implements Runnable {
         init();
 
         int fps = 60;
-        double timePerTick = 1000000000 / fps;
+        double timePerTick = 1000000000.0 / fps;
         double delta = 0;
         long now;
         long lastTime = System.nanoTime();
@@ -164,12 +150,12 @@ public class GameSetUp implements Runnable {
     }
 
     private void render(){
-        bs = display.getCanvas().getBufferStrategy();
+        BufferStrategy bs = display.getCanvas().getBufferStrategy();
         if(bs == null){
             display.getCanvas().createBufferStrategy(3);
             return;
         }
-        g = bs.getDrawGraphics();
+        Graphics g = bs.getDrawGraphics();
         //Clear Screen
         g.clearRect(0, 0, width, height);
 
@@ -185,7 +171,7 @@ public class GameSetUp implements Runnable {
         g.dispose();
     }
 
-    public synchronized void stop(){
+    private synchronized void stop(){
         if(!running)
             return;
         running = false;
@@ -196,19 +182,19 @@ public class GameSetUp implements Runnable {
         }
     }
 
-    public KeyManager getKeyManager(){
+    KeyManager getKeyManager(){
         return keyManager;
     }
 
-    public MouseManager getMouseManager(){
+    MouseManager getMouseManager(){
         return mouseManager;
     }
 
-    public int getWidth(){
+    int getWidth(){
         return width;
     }
 
-    public int getHeight(){
+    int getHeight(){
         return height;
     }
 }

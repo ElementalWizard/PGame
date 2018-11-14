@@ -8,14 +8,14 @@ import java.awt.event.MouseEvent;
  */
 public abstract class UIObject {
 
-    protected int width,heith;
-    protected float x,y;
-    protected Rectangle bounds;
-    protected boolean hovering = false;
-    protected boolean active=false;
+    int width,heith;
+    float x,y;
+    private Rectangle bounds;
+    boolean hovering = false;
+    boolean active=false;
 
 
-    public UIObject(float x, float y,int width,int height){
+    UIObject(float x, float y, int width, int height){
         this.heith=height;
         this.width=width;
         this.x=x;
@@ -29,19 +29,17 @@ public abstract class UIObject {
     public abstract void onClick();
 
 
-    public void onMousePressed(MouseEvent e) {
+    void onMousePressed(MouseEvent e) {
         active=true;
     }
 
 
 
-    public void onMouseMove(MouseEvent e){
-        if(bounds.contains(e.getX(),e.getY())){
-            hovering=true;
-        }else hovering=false;
+    void onMouseMove(MouseEvent e){
+        hovering = bounds.contains(e.getX(), e.getY());
 
     }
-    public void onMouseRelease(MouseEvent e){
+    void onMouseRelease(MouseEvent e){
 
         if(hovering&& e.getButton()==MouseEvent.BUTTON1){
             onClick();
