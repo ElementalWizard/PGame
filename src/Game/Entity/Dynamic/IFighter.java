@@ -23,6 +23,8 @@ public interface IFighter {
     int getDefence();
     int getMagic();
     int getMagicDefence();
+    int getLevel();
+    float getEXP();
     ArrayList<BaseAttack> getAttackList();
     ArrayList<BaseSpell> getSpellList();
 
@@ -32,6 +34,8 @@ public interface IFighter {
     void setDefence(int Defence);
     void setMagic(int Magic);
     void setMagicDefence(int Mdefence);
+    void setLevel(int Level);
+    void setEXP(float EXP);
     void setAttackList(ArrayList<BaseAttack> BaseAttackList);
     void setSpellList(ArrayList<BaseSpell> BaseSpellList);
 

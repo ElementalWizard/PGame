@@ -15,17 +15,33 @@ public class Player extends BaseDynamicEntity implements IFighter {
     private int magic = 100;
     private int magicDefence = 100;
 
+    private int level = 1;
+    private float EXP = 0;
+    private float maxEXP = 100;
+
+
     private ArrayList<BaseAttack> BASE_ATTACK_LIST = new ArrayList<>();
     private ArrayList<BaseSpell> BASE_SPELL_LIST = new ArrayList<>();
 
 
     public Player(Handler handler) {
         super(handler);
+
     }
 
 
 
 
+
+    public void LevelUp(int incAttack,int incDefence,int incMagic,int incMagicDefence,float newEXPMax){
+        level++;
+        attack+=incAttack;
+        defence+=incDefence;
+        magic+=incMagic;
+        magicDefence+=incMagicDefence;
+        maxEXP=newEXPMax;
+        EXP=0;
+    }
 
 
     //Getters and setters
@@ -53,6 +69,21 @@ public class Player extends BaseDynamicEntity implements IFighter {
     public int getMagicDefence() {
         return magicDefence;
     }
+
+    @Override
+    public int getLevel() {
+        return level;
+    }
+
+    @Override
+    public float getEXP() {
+        return EXP;
+    }
+
+    public float getMaxEXP() {
+        return maxEXP;
+    }
+
 
     @Override
     public ArrayList<BaseAttack> getAttackList() {
@@ -97,6 +128,24 @@ public class Player extends BaseDynamicEntity implements IFighter {
 
         magicDefence=Mdefence;
 
+    }
+
+    @Override
+    public void setLevel(int Level) {
+
+        level = Level;
+
+    }
+
+    @Override
+    public void setEXP(float EXP) {
+
+        this.EXP = EXP;
+
+    }
+
+    public void setMaxEXP(float maxEXP) {
+        this.maxEXP = maxEXP;
     }
 
     @Override
