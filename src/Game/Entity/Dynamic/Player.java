@@ -32,7 +32,7 @@ public class Player extends BaseDynamicEntity implements IFighter {
 
 
 
-
+    @Override
     public void LevelUp(int incAttack,int incDefence,int incMagic,int incMagicDefence,float newEXPMax){
         level++;
         attack+=incAttack;

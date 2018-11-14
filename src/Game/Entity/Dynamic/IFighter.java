@@ -12,6 +12,7 @@ public interface IFighter {
 
 
 
+    void LevelUp(int incAttack,int incDefence,int incMagic,int incMagicDefence,float newEXPMax);
 
 
 
