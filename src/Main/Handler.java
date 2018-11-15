@@ -2,6 +2,7 @@ package Main;
 
 import Input.KeyManager;
 import Input.MouseManager;
+import Resources.MusicHandler;
 
 
 /**
@@ -38,6 +39,10 @@ public class Handler {
 
     public MouseManager getMouseManager(){
         return game.getMouseManager();
+    }
+
+    public MusicHandler getMusicManager(){
+        return game.getMusicHandler();
     }
 
 

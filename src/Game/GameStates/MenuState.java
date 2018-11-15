@@ -3,10 +3,12 @@ package Game.GameStates;
 
 import Main.Handler;
 import Resources.Images;
+import Resources.MusicHandler;
 import UI.UIImageButton;
 import UI.UIManager;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 
 /**
  * Created by AlexVR on 7/1/2018.
@@ -32,6 +34,7 @@ public class MenuState extends State {
     public void tick() {
         handler.getMouseManager().setUimanager(uiManager);
         uiManager.tick();
+
 
     }
 

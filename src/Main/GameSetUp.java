@@ -8,9 +8,11 @@ import Game.GameStates.State;
 import Input.KeyManager;
 import Input.MouseManager;
 import Resources.Images;
+import Resources.MusicHandler;
 
 import javax.sound.sampled.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -36,6 +38,8 @@ public class GameSetUp implements Runnable {
 
     //Handler
     private Handler handler;
+    private MusicHandler musicHandler;
+
 
     //States
     public State gameState;
@@ -51,6 +55,7 @@ public class GameSetUp implements Runnable {
         this.title = title;
         keyManager = new KeyManager();
         mouseManager = new MouseManager();
+        musicHandler = new MusicHandler(handler);
 
     }
 
@@ -71,22 +76,18 @@ public class GameSetUp implements Runnable {
         menuState = new MenuState(handler);
         pauseState = new PauseState(handler);
 
+
+
+
+        musicHandler.set_changeMusic("res/music/UTheme.mp3");
+        musicHandler.play();
+        musicHandler.setLoop(true);
+        musicHandler.setVolume(0.5);
+
+
+
         State.setState(menuState);
 
-        try {
-
-            //Res.music
-            InputStream audioFile = getClass().getResourceAsStream("/music/nature.wav");
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
-            AudioFormat format = audioStream.getFormat();
-            DataLine.Info info = new DataLine.Info(Clip.class, format);
-            Clip audioClip = (Clip) AudioSystem.getLine(info);
-            audioClip.open(audioStream);
-            audioClip.loop(Clip.LOOP_CONTINUOUSLY);
-
-        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
-            e.printStackTrace();
-        }
     }
 
     public void reStart(){
@@ -144,6 +145,14 @@ public class GameSetUp implements Runnable {
         //checks for key types and manages them
         keyManager.tick();
 
+        if(keyManager.keyJustPressed(KeyEvent.VK_M)){
+            if(musicHandler.isPlaying) {
+                musicHandler.pause();
+            }else if(musicHandler.alreadyStarted){
+                musicHandler.play();
+            }
+        }
+
         //game states are the menus
         if(State.getState() != null)
             State.getState().tick();
@@ -196,6 +205,10 @@ public class GameSetUp implements Runnable {
 
     int getHeight(){
         return height;
+    }
+
+    MusicHandler getMusicHandler() {
+        return musicHandler;
     }
 }
 
