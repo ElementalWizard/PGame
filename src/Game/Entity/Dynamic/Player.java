@@ -1,9 +1,13 @@
 package Game.Entity.Dynamic;
 
+import Game.Entity.BaseEntity;
 import Game.Entity.Dynamic.Attacks.PhysicalAttack.BaseAttack;
 import Game.Entity.Dynamic.Attacks.SpellsAttack.BaseSpell;
 import Main.Handler;
+import World.platforms.BasePlatform;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class Player extends BaseDynamicEntity implements IFighter {
@@ -19,17 +23,55 @@ public class Player extends BaseDynamicEntity implements IFighter {
     private float EXP = 0;
     private float maxEXP = 100;
 
+    private boolean fighting = false;
+
 
     private ArrayList<BaseAttack> BASE_ATTACK_LIST = new ArrayList<>();
     private ArrayList<BaseSpell> BASE_SPELL_LIST = new ArrayList<>();
 
 
-    public Player(Handler handler) {
-        super(handler);
+
+    public Player(Handler handler,int x,int y,int widht,int height, BufferedImage sprite) {
+        super(handler,x,y,widht,height,sprite);
+
+        bounds.x=8*2;
+        bounds.y=18*2;
+        bounds.width=16*2;
+        bounds.height=14*2;
+
 
     }
 
 
+    @Override
+    public void tick() {
+        super.tick();
+
+        getInput();
+        move();
+
+    }
+
+    @Override
+    public void render(Graphics g) {
+        super.render(g);
+
+
+    }
+
+    private void getInput(){
+        xMove = 0;
+        yMove = 0;
+
+        if(handler.getKeyManager().up &&! fighting)
+            yMove = -speed;
+        if(handler.getKeyManager().down&&! fighting)
+            yMove = speed;
+        if(handler.getKeyManager().left&&! fighting)
+            xMove = -speed;
+        if(handler.getKeyManager().right&&! fighting)
+            xMove = speed;
+    }
 
 
     @Override

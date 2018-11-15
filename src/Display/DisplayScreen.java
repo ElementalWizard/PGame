@@ -1,6 +1,7 @@
 package Display;
 
 import java.awt.*;
+import java.awt.image.PixelGrabber;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -53,6 +54,7 @@ public class DisplayScreen {
         canvas.setFocusable(false);
         canvas.setBackground(Color.black);
 
+
         frame.add(canvas);
         frame.pack();
     }
@@ -64,5 +66,7 @@ public class DisplayScreen {
     public JFrame getFrame(){
         return frame;
     }
+
+
 
 }

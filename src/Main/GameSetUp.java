@@ -10,13 +10,10 @@ import Input.MouseManager;
 import Resources.Images;
 import Resources.MusicHandler;
 
-import javax.sound.sampled.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
 
 
 /**
@@ -39,6 +36,7 @@ public class GameSetUp implements Runnable {
     //Handler
     private Handler handler;
     private MusicHandler musicHandler;
+
 
 
     //States
@@ -70,6 +68,8 @@ public class GameSetUp implements Runnable {
         Images img = new Images();
 
 
+
+
         handler = new Handler(this);
 
         gameState = new GameState(handler);
@@ -82,7 +82,7 @@ public class GameSetUp implements Runnable {
         musicHandler.set_changeMusic("res/music/UTheme.mp3");
         musicHandler.play();
         musicHandler.setLoop(true);
-        musicHandler.setVolume(0.5);
+        musicHandler.setVolume(0.25);
 
 
 
@@ -209,6 +209,14 @@ public class GameSetUp implements Runnable {
 
     MusicHandler getMusicHandler() {
         return musicHandler;
+    }
+
+    public DisplayScreen getDisplay() {
+        return display;
+    }
+
+    public void setDisplay(DisplayScreen display) {
+        this.display = display;
     }
 }
 

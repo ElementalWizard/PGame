@@ -3,6 +3,7 @@ package Main;
 import Input.KeyManager;
 import Input.MouseManager;
 import Resources.MusicHandler;
+import World.BaseRoom;
 
 
 /**
@@ -12,6 +13,7 @@ import Resources.MusicHandler;
 public class Handler {
 
     private GameSetUp game;
+    private BaseRoom room;
 
     public Handler(GameSetUp game){
         this.game = game;
@@ -24,6 +26,7 @@ public class Handler {
     public int getHeight(){
         return game.getHeight();
     }
+
 
     public GameSetUp getGame() {
         return game;
@@ -43,6 +46,13 @@ public class Handler {
 
     public MusicHandler getMusicManager(){
         return game.getMusicHandler();
+    }
+
+    public BaseRoom getRoom(){
+        return room;
+    }
+    public void setRoom(BaseRoom room){
+        this.room = room;
     }
 
 
