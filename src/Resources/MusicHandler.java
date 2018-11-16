@@ -64,8 +64,6 @@ public class MusicHandler {
         path= Path;
         media = new Media(new File(Path).toURI().toString());
 
-
-
     }
 
     public void playEfect(String EPath,int index){
@@ -76,15 +74,11 @@ public class MusicHandler {
         playerE.get(index).play();
 
 
-
-
-
     }
 
     public void stopEfect(int index){
 
         playerE.get(index).stop();
-
 
     }
 
