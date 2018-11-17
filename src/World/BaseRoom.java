@@ -6,18 +6,18 @@ import Game.Entity.EntityManager;
 import Main.Handler;
 import World.platforms.BasePlatform;
 import World.platforms.SquarePlatform;
-
 import java.awt.*;
 import java.util.ArrayList;
 
 public class BaseRoom {
 
     private Handler handler;
-    public ArrayList<BasePlatform> platforms = new ArrayList<>();
+    ArrayList<BasePlatform> platforms = new ArrayList<>();
     private EntityManager em;
 
+    public ArrayList<Point> pointsWirhPlatforms = new ArrayList<>();
 
-    public BaseRoom(Handler handler, Player player){
+    BaseRoom(Handler handler, Player player){
         this.handler = handler;
         em = new EntityManager();
         em.setPlayer(player);
@@ -55,5 +55,19 @@ public class BaseRoom {
         this.em = em;
     }
 
+
+    void getPointsWirhPlatforms(){
+
+        for (BasePlatform platform:platforms) {
+            if(platform instanceof  SquarePlatform) {
+                for (int x = platform.getX(); x <= platform.getX() + ((SquarePlatform) platform).getWidth(); x++) {
+                    for (int y = platform.getY(); y <= platform.getY() + ((SquarePlatform) platform).getHeigh(); y++) {
+                        pointsWirhPlatforms.add(new Point(x,y));
+                    }
+                }
+            }
+        }
+
+    }
 
 }

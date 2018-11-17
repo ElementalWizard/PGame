@@ -1,14 +1,13 @@
 package World.platforms;
 
 import Main.Handler;
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class SquarePlatform extends BasePlatform {
 
-    int width;
-    int heigh;
+    private int width;
+    private int heigh;
 
 
     public SquarePlatform(Handler handler, int x, int y, BufferedImage image, int width, int height) {

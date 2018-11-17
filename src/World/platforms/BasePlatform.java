@@ -11,18 +11,18 @@ public class BasePlatform {
 
 
     Handler handler;
-    int x,y;
-    BufferedImage image = null;
-    Color color = null;
+    private int x,y;
+    private BufferedImage image = null;
+    private Color color = null;
 
-    public BasePlatform(Handler handler, int x, int y, BufferedImage image){
+    BasePlatform(Handler handler, int x, int y, BufferedImage image){
         this.handler = handler;
         this.x=x;
         this.y=y;
         this.image = image;
     }
 
-    public BasePlatform(Handler handler, int x, int y, Color color){
+    BasePlatform(Handler handler, int x, int y, Color color){
         this.handler = handler;
         this.x=x;
         this.y=y;
@@ -40,13 +40,6 @@ public class BasePlatform {
                 g.fillRect(this.getX(), this.getY(), ((SquarePlatform) this).getWidth(), ((SquarePlatform) this).getHeigh());
             } else {
                 g.drawImage(this.getImage(), this.getX(), this.getY(), ((SquarePlatform) this).getWidth(), ((SquarePlatform) this).getHeigh(), null);
-            }
-        }else if(this instanceof TransitionPlatform) {
-            if (this.getImage() == null) {
-                g.setColor(this.getColor());
-                g.fillRect(this.getX(), this.getY(), ((TransitionPlatform) this).getWidth(), ((TransitionPlatform) this).getHeigh());
-            } else {
-                g.drawImage(this.getImage(), this.getX(), this.getY(), ((TransitionPlatform) this).getWidth(), ((TransitionPlatform) this).getHeigh(), null);
             }
         }
     }
