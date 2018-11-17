@@ -2,6 +2,7 @@ package Main;
 
 import Input.KeyManager;
 import Input.MouseManager;
+import Resources.GameCamera;
 import Resources.MusicHandler;
 import World.BaseRoom;
 
@@ -14,6 +15,7 @@ public class Handler {
 
     private GameSetUp game;
     private BaseRoom room;
+    private GameCamera cam;
 
     public Handler(GameSetUp game){
         this.game = game;
@@ -55,5 +57,11 @@ public class Handler {
         this.room = room;
     }
 
+    public void setCamera(GameCamera camera){
+        cam=camera;
+    }
+    public GameCamera getCamera(){
+        return cam;
+    }
 
 }

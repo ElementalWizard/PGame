@@ -4,6 +4,7 @@ import Game.Entity.BaseEntity;
 import Game.Entity.Dynamic.Player;
 import Game.Entity.EntityManager;
 import Main.Handler;
+import Resources.GameCamera;
 import World.platforms.BasePlatform;
 import World.platforms.SquarePlatform;
 import java.awt.*;
@@ -15,6 +16,7 @@ public class BaseRoom {
     ArrayList<BasePlatform> platforms = new ArrayList<>();
     private EntityManager em;
 
+    protected GameCamera cam;
     public ArrayList<Point> pointsWirhPlatforms = new ArrayList<>();
 
     BaseRoom(Handler handler, Player player){
@@ -32,10 +34,12 @@ public class BaseRoom {
             entity.tick();
 
         }
+        cam.tick();
     }
 
 
     public void render(Graphics g){
+        g.translate(-cam.getCamX(), -cam.getCamY());
 
         for (BasePlatform platform: platforms) {
             platform.render(g);
@@ -56,7 +60,7 @@ public class BaseRoom {
     }
 
 
-    void getPointsWirhPlatforms(){
+    public void getPointsWirhPlatforms(){
 
         for (BasePlatform platform:platforms) {
             if(platform instanceof  SquarePlatform) {
