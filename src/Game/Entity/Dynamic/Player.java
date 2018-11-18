@@ -3,6 +3,7 @@ package Game.Entity.Dynamic;
 import Game.Entity.BaseEntity;
 import Game.Entity.Dynamic.Attacks.PhysicalAttack.BaseAttack;
 import Game.Entity.Dynamic.Attacks.SpellsAttack.BaseSpell;
+import Game.Entity.Dynamic.Items.BaseItem;
 import Game.GameStates.FightState;
 import Game.GameStates.State;
 import Main.Handler;
@@ -19,6 +20,7 @@ public class Player extends BaseDynamicEntity implements IFighter {
     private int defence = 100;
     private int magic = 100;
     private int magicDefence = 100;
+    private int mana = 100;
 
     private int level = 1;
     private float EXP = 0;
@@ -30,6 +32,7 @@ public class Player extends BaseDynamicEntity implements IFighter {
 
     private ArrayList<BaseAttack> BASE_ATTACK_LIST = new ArrayList<>();
     private ArrayList<BaseSpell> BASE_SPELL_LIST = new ArrayList<>();
+    private ArrayList<BaseItem> BASE_ITEM_LIST = new ArrayList<>();
 
 
 
@@ -41,6 +44,17 @@ public class Player extends BaseDynamicEntity implements IFighter {
         bounds.width=16*2;
         bounds.height=14*2;
 
+        name = "Player";
+        BASE_ATTACK_LIST.add(BaseAttack.Kick);
+        BASE_ATTACK_LIST.add(BaseAttack.Punch);
+        BASE_ATTACK_LIST.add(BaseAttack.Slam);
+
+        BASE_SPELL_LIST.add(BaseSpell.EarthShock);
+        BASE_SPELL_LIST.add(BaseSpell.AirSlash);
+        BASE_SPELL_LIST.add(BaseSpell.WaterPrisson);
+        BASE_SPELL_LIST.add(BaseSpell.FireBall);
+
+        BASE_ITEM_LIST.add(BaseItem.potion);
 
     }
 
@@ -88,6 +102,10 @@ public class Player extends BaseDynamicEntity implements IFighter {
             if(entity instanceof IFighter && !(entity instanceof Player)){
                 Rectangle fightArea = calculateFightRectangle(g);
                 if(fightArea.intersects(new Rectangle(entity.getX(),entity.getY(),entity.getWidth(),entity.getHeight()))){
+                    handler.getMusicManager().set_changeMusic("res/music/FightSongU.mp3");
+                    handler.getMusicManager().play();
+                    handler.getMusicManager().setLoop(true);
+                    handler.getMusicManager().setVolume(0.5);
                     State.setState(new FightState(handler,((BaseDynamicEntity) entity).minions,(BaseDynamicEntity) entity,this));
                 }
             }
@@ -159,6 +177,11 @@ public class Player extends BaseDynamicEntity implements IFighter {
     }
 
     @Override
+    public int getMana() {
+        return mana;
+    }
+
+    @Override
     public int getAttack() {
         return attack;
     }
@@ -208,6 +231,12 @@ public class Player extends BaseDynamicEntity implements IFighter {
 
         health = Health;
 
+    }
+
+    @Override
+    public void setMana(int Mana) {
+
+        mana = Mana;
     }
 
     @Override
@@ -268,5 +297,9 @@ public class Player extends BaseDynamicEntity implements IFighter {
 
         BASE_SPELL_LIST = BaseSpellList;
 
+    }
+
+    public ArrayList<BaseItem> getITEMLIST() {
+        return BASE_ITEM_LIST;
     }
 }

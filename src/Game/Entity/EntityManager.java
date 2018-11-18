@@ -17,15 +17,6 @@ public class EntityManager {
         ENTITIES.add(entity);
     }
 
-    public ArrayList<BaseEntity> getEntities(BaseEntity entityType){
-        ArrayList<BaseEntity> entityList = new ArrayList<>();
-        for (BaseEntity entity:ENTITIES) {
-            if(entity.getClass()==entityType.getClass()){
-                entityList.add(entity);
-            }
-        }
-        return entityList;
-    }
 
     public Player getPlayer() {
         return player;

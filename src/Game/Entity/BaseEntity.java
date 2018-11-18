@@ -13,6 +13,8 @@ public class BaseEntity {
     private BufferedImage sprite;
     protected Rectangle bounds;
 
+    private boolean debug = true;
+
     protected boolean lookingLeft = false,lookingRight = false,lookingUp = false,lookingDown = true;
     protected Color defaultColor = Color.pink;
 
@@ -70,15 +72,19 @@ public class BaseEntity {
             interactingRect.height=height;
         }
 
-        g.setColor(Color.GREEN);
-        g.drawRect(interactingRect.x,interactingRect.y,interactingRect.width,interactingRect.height);
+        if(debug) {
+            g.setColor(Color.GREEN);
+            g.drawRect(interactingRect.x, interactingRect.y, interactingRect.width, interactingRect.height);
+        }
         return interactingRect;
     }
 
     protected Rectangle calculateFightRectangle(Graphics g){
         Rectangle interactingRect = new Rectangle(x-(width/3),y-(height/3),width+(2*width/3),height+(2*height/3));
-        g.setColor(Color.GREEN);
-        g.drawRect(interactingRect.x,interactingRect.y,interactingRect.width,interactingRect.height);
+        if(debug) {
+            g.setColor(Color.GREEN);
+            g.drawRect(interactingRect.x, interactingRect.y, interactingRect.width, interactingRect.height);
+        }
         return interactingRect;
     }
 

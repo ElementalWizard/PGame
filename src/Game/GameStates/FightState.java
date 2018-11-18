@@ -3,6 +3,7 @@ package Game.GameStates;
 import Game.Entity.Dynamic.BaseDynamicEntity;
 import Game.Entity.Dynamic.Player;
 import Main.Handler;
+import UI.UIFightBox;
 import World.platforms.BasePlatform;
 import World.platforms.SquarePlatform;
 import sun.plugin.services.PlatformService;
@@ -22,6 +23,7 @@ public class FightState extends State {
     private BaseDynamicEntity enemy;
     private int EtempX,EtempY;
     private String EtempDirrection;
+    private UIFightBox fightBox;
 
 
     public FightState(Handler handler, ArrayList<BaseDynamicEntity> Entities,BaseDynamicEntity entity, Player player) {
@@ -45,6 +47,7 @@ public class FightState extends State {
         enemy.setDirection("Left");
         enemy.setX(((handler.getWidth() / 2) + 300) - (120));
         enemy.setY(((handler.getHeight() / 2)));
+        fightBox = new UIFightBox(handler,10,handler.getHeight()-144,handler.getWidth()-20,134,Color.gray,this);
 
     }
 
@@ -53,6 +56,7 @@ public class FightState extends State {
     public void tick() {
         player.tick();
         enemy.tick();
+        fightBox.tick();
     }
 
     @Override
@@ -72,7 +76,7 @@ public class FightState extends State {
         }
         player.render(g);
         enemy.render(g);
-
+        fightBox.render(g);
     }
 
     public void leaveFight(){
@@ -81,6 +85,22 @@ public class FightState extends State {
         player.setDirection(tempDirrection);
         player.setFighting(false);
         enemy.kill();
+        handler.getMusicManager().set_changeMusic("res/music/UTheme.mp3");
+        handler.getMusicManager().play();
+        handler.getMusicManager().setLoop(true);
+        handler.getMusicManager().setVolume(0.25);
         State.setState(handler.getGame().gameState);
+    }
+
+    public ArrayList<BaseDynamicEntity> getEntities() {
+        return entities;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public BaseDynamicEntity getEnemy() {
+        return enemy;
     }
 }

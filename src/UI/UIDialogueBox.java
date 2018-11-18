@@ -5,11 +5,11 @@ import java.util.ArrayList;
 
 public class UIDialogueBox extends UIObject {
 
-    Color background,foreground;
-    String name;
-    ArrayList<String> Dialogue;
-    int dialogueIndex = 0;
-    boolean interacting = true;
+    private Color background,foreground;
+    private String name;
+    private ArrayList<String> Dialogue;
+    public int dialogueIndex = 0;
+    private boolean interacting = true;
 
     public UIDialogueBox(float x, float y, int width, int height, Color background, Color forground, String name, ArrayList<String> Dialogue) {
         super(x, y, width, height);

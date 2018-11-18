@@ -20,6 +20,7 @@ public interface IFighter {
 
     //GETTERS
     int getHealth();
+    int getMana();
     int getAttack();
     int getDefence();
     int getMagic();
@@ -31,6 +32,7 @@ public interface IFighter {
 
     //SETTERS
     void setHealth(int Health);
+    void setMana(int Mana);
     void setAttack(int Attack);
     void setDefence(int Defence);
     void setMagic(int Magic);

@@ -13,6 +13,7 @@ public class Slime extends BaseDynamicEntity implements IFighter{
     private int defence = 100;
     private int magic = 100;
     private int magicDefence = 100;
+    private int mana = 100;
 
     private int level = 1;
 
@@ -28,6 +29,7 @@ public class Slime extends BaseDynamicEntity implements IFighter{
         bounds.y=18*2;
         bounds.width=16*2;
         bounds.height=14*2;
+        name = "Slime";
 
     }
 
@@ -47,6 +49,11 @@ public class Slime extends BaseDynamicEntity implements IFighter{
     @Override
     public int getHealth() {
         return health;
+    }
+
+    @Override
+    public int getMana() {
+        return mana;
     }
 
     @Override
@@ -95,6 +102,11 @@ public class Slime extends BaseDynamicEntity implements IFighter{
 
         health = Health;
 
+    }
+
+    @Override
+    public void setMana(int Mana) {
+        mana=Mana;
     }
 
     @Override

@@ -59,7 +59,8 @@ public class MusicHandler {
     public void set_changeMusic(String Path){
 
         if(isPlaying){
-            player.pause();
+            pause();
+            alreadyStarted = false;
         }
         path= Path;
         media = new Media(new File(Path).toURI().toString());

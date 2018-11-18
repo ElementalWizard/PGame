@@ -14,14 +14,17 @@ public class BaseDynamicEntity extends BaseEntity {
     float xMove, yMove;
     ArrayList<BaseDynamicEntity> minions;
 
+    public String name = "dynamic.entity";
     protected boolean dead = false;
 
-    BaseDynamicEntity(Handler handler, int x, int y, int widht, int height, BufferedImage sprite) {
-        super(handler,x,y,widht,height,sprite);
+    BaseDynamicEntity(Handler handler, int x, int y, int width, int height, BufferedImage sprite) {
+        super(handler,x,y,width,height,sprite);
         speed = DEFAULT_SPEED;
         xMove=0;
         yMove=0;
-        if(this instanceof  IInteractable){
+        if(this instanceof  Player){
+            defaultColor = Color.BLACK;
+        }else if(this instanceof  IInteractable){
             defaultColor = Color.CYAN;
         }else if(this instanceof  IFighter){
             defaultColor = Color.red;
