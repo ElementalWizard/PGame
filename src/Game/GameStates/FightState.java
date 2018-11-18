@@ -20,6 +20,8 @@ public class FightState extends State {
     private Player player;
     private BasePlatform platform;
     private BaseDynamicEntity enemy;
+    private int EtempX,EtempY;
+    private String EtempDirrection;
 
 
     public FightState(Handler handler, ArrayList<BaseDynamicEntity> Entities,BaseDynamicEntity entity, Player player) {
@@ -37,6 +39,9 @@ public class FightState extends State {
         platform =handler.getRoom().getPlatforms().get(new Random().nextInt(handler.getRoom().getPlatforms().size()));
 
         enemy=entity;
+        EtempX=enemy.getX();
+        EtempY=enemy.getY();
+        EtempDirrection=enemy.getDirectionLooking();
         enemy.setDirection("Left");
         enemy.setX(((handler.getWidth() / 2) + 300) - (120));
         enemy.setY(((handler.getHeight() / 2)));
@@ -75,6 +80,7 @@ public class FightState extends State {
         player.setY(tempY);
         player.setDirection(tempDirrection);
         player.setFighting(false);
+        enemy.kill();
         State.setState(handler.getGame().gameState);
     }
 }
