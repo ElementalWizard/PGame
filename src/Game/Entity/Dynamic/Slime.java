@@ -4,8 +4,8 @@ import Main.Handler;
 import java.awt.image.BufferedImage;
 
 public class Slime extends BaseDynamicEntity {
-    public Slime(Handler handler,int x,int y,int widht,int height, BufferedImage sprite) {
-        super(handler,x,y,widht,height,sprite);
+    public Slime(Handler handler,int x,int y,int width,int height, BufferedImage sprite) {
+        super(handler,x,y,width,height,sprite);
 
         bounds.x=8*2;
         bounds.y=18*2;
