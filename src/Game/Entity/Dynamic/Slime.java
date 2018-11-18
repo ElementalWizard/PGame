@@ -1,9 +1,6 @@
 package Game.Entity.Dynamic;
 
-import Game.Entity.BaseEntity;
 import Main.Handler;
-
-import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Slime extends BaseDynamicEntity {

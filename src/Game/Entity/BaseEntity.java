@@ -10,16 +10,16 @@ public class BaseEntity {
     protected Handler handler;
 
     protected int x,y;
-    protected BufferedImage sprite = null;
-    public Rectangle bounds;
+    private BufferedImage sprite;
+    protected Rectangle bounds;
 
     protected boolean lookingLeft = false,lookingRight = false,lookingUp = false,lookingDown = true;
 
 
     protected int width, height;
 
-    public static final int DEFAULT_WIDTH =  32;
-    public static final int DEFAULT_HEIGHT =  32;
+    private static final int DEFAULT_WIDTH =  32;
+    private static final int DEFAULT_HEIGHT =  32;
 
     public BaseEntity(Handler handler,int x, int y,int width,int height,BufferedImage sprite){
         this.handler = handler;
@@ -46,7 +46,7 @@ public class BaseEntity {
 
 
     }
-    public Rectangle calculateInteractionRectangle(Graphics g){
+    protected Rectangle calculateInteractionRectangle(Graphics g){
         Rectangle interactingRect = new Rectangle(0,0,width,height);
         if(lookingUp){
             interactingRect.x=x;
@@ -75,17 +75,17 @@ public class BaseEntity {
         return interactingRect;
     }
 
-    public boolean checkEntityCollisions(float xOffset, float yOffset){
+    protected boolean checkEntityCollisions(float xOffset, float yOffset){
         for(BaseEntity e : handler.getRoom().getEm().getENTITIES()){
             if(e.equals(this))
                 continue;
             if(e.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(xOffset, yOffset)))
-                return true;
+                return false;
         }
-        return false;
+        return true;
     }
 
-    public Rectangle getCollisionBounds(float xOffset, float yOffset){
+    private Rectangle getCollisionBounds(float xOffset, float yOffset){
         return new Rectangle((int) (x + bounds.x + xOffset), (int) (y + bounds.y + yOffset), bounds.width, bounds.height);
     }
 

@@ -4,9 +4,6 @@ import Game.Entity.BaseEntity;
 import Game.Entity.Dynamic.Attacks.PhysicalAttack.BaseAttack;
 import Game.Entity.Dynamic.Attacks.SpellsAttack.BaseSpell;
 import Main.Handler;
-import World.platforms.BasePlatform;
-import javafx.scene.input.KeyCode;
-
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;

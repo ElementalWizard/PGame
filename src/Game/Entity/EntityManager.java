@@ -1,9 +1,6 @@
 package Game.Entity;
 
 import Game.Entity.Dynamic.Player;
-import Main.Handler;
-import World.BaseRoom;
-
 import java.util.ArrayList;
 
 public class EntityManager {

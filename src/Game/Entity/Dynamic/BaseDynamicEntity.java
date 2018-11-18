@@ -23,10 +23,10 @@ public class BaseDynamicEntity extends BaseEntity {
     }
 
     void move(){
-        if(!checkEntityCollisions(xMove, 0f))
+        if(checkEntityCollisions(xMove, 0f))
             moveX();
 
-        if(!checkEntityCollisions(0f, yMove))
+        if(checkEntityCollisions(0f, yMove))
             moveY();
 
     }

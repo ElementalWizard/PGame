@@ -2,8 +2,6 @@ package Game.Entity.Dynamic;
 
 import Main.Handler;
 import UI.UIDialogueBox;
-import javafx.scene.input.KeyCode;
-
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
@@ -11,12 +9,12 @@ import java.util.ArrayList;
 
 public class Villiger extends BaseDynamicEntity implements IInteractable {
 
-    String name;
-    ArrayList<String> Dialogue;
-    public boolean Interacting = false;
-    Handler handler;
+    private String name;
+    private ArrayList<String> Dialogue;
+    private boolean Interacting = false;
+    private Handler handler;
 
-    UIDialogueBox box;
+    private UIDialogueBox box;
 
     public Villiger(Handler handler,int x,int y,int widht,int height, BufferedImage sprite,Color Background,Color ForeGround,String name,ArrayList<String> Dialogue){
         super(handler,x,y,widht,height,sprite);
