@@ -142,4 +142,9 @@ public class BaseEntity {
     public void setHeight(int height) {
         this.height = height;
     }
+
+    public void kill() {
+        handler.getRoom().getEm().getENTITIES().remove(this);
+    }
+
 }

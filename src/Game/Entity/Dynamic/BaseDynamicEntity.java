@@ -104,7 +104,5 @@ public class BaseDynamicEntity extends BaseEntity {
         }
     }
 
-    public void kill() {
-        handler.getRoom().getEm().getENTITIES().remove(this);
-    }
+
 }
