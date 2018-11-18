@@ -5,8 +5,10 @@ import Game.Entity.Dynamic.Attacks.PhysicalAttack.BaseAttack;
 import Game.Entity.Dynamic.Attacks.SpellsAttack.BaseSpell;
 import Main.Handler;
 import World.platforms.BasePlatform;
+import javafx.scene.input.KeyCode;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -24,6 +26,7 @@ public class Player extends BaseDynamicEntity implements IFighter {
     private float maxEXP = 100;
 
     private boolean fighting = false;
+
 
 
     private ArrayList<BaseAttack> BASE_ATTACK_LIST = new ArrayList<>();
@@ -50,27 +53,60 @@ public class Player extends BaseDynamicEntity implements IFighter {
         getInput();
         move();
 
+
+
     }
 
     @Override
     public void render(Graphics g) {
         super.render(g);
+        for(BaseEntity entity:handler.getRoom().getEm().getENTITIES()){
+            if(entity instanceof IInteractable){
+                Rectangle interactingRect = calculateInteractionRectangle(g);
+                if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_E)&&interactingRect.intersects(new Rectangle(entity.getX(),entity.getY(),entity.getWidth(),entity.getHeight()))){
+                    ((IInteractable) entity).interact(g);
+                }else if(!interactingRect.intersects(new Rectangle(entity.getX(),entity.getY(),entity.getWidth(),entity.getHeight()))){
+                    ((IInteractable) entity).endInteraction();
+                }
 
+            }
+        }
 
     }
+
 
     private void getInput(){
         xMove = 0;
         yMove = 0;
 
-        if(handler.getKeyManager().up &&! fighting)
+        if(handler.getKeyManager().up &&! fighting) {
+            lookingUp = true;
+            lookingDown = false;
+            lookingLeft = false;
+            lookingRight = false;
             yMove = -speed;
-        if(handler.getKeyManager().down&&! fighting)
+        }
+        if(handler.getKeyManager().down&&! fighting) {
+            lookingUp = false;
+            lookingDown = true;
+            lookingLeft = false;
+            lookingRight = false;
             yMove = speed;
-        if(handler.getKeyManager().left&&! fighting)
+        }
+        if(handler.getKeyManager().left&&! fighting) {
+            lookingUp = false;
+            lookingDown = false;
+            lookingLeft = true;
+            lookingRight = false;
             xMove = -speed;
-        if(handler.getKeyManager().right&&! fighting)
+        }
+        if(handler.getKeyManager().right&&! fighting) {
+            lookingUp = false;
+            lookingDown = false;
+            lookingLeft = false;
+            lookingRight = true;
             xMove = speed;
+        }
     }
 
 

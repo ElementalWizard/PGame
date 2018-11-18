@@ -60,6 +60,11 @@ public class BaseDynamicEntity extends BaseEntity {
         }
     }
 
+    public void render(Graphics g){
+        super.render(g);
+
+    }
+
 
 
 }

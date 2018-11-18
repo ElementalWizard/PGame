@@ -14,5 +14,6 @@ public class Slime extends BaseDynamicEntity {
         bounds.y=18*2;
         bounds.width=16*2;
         bounds.height=14*2;
+
     }
 }

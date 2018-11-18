@@ -13,6 +13,9 @@ public class BaseEntity {
     protected BufferedImage sprite = null;
     public Rectangle bounds;
 
+    protected boolean lookingLeft = false,lookingRight = false,lookingUp = false,lookingDown = true;
+
+
     protected int width, height;
 
     public static final int DEFAULT_WIDTH =  32;
@@ -35,7 +38,6 @@ public class BaseEntity {
     }
 
     public void render(Graphics g){
-
         if(sprite == null){
             g.setColor(Color.PINK);
             g.fillRect(x,y,DEFAULT_WIDTH,DEFAULT_HEIGHT);
@@ -43,6 +45,34 @@ public class BaseEntity {
 
 
 
+    }
+    public Rectangle calculateInteractionRectangle(Graphics g){
+        Rectangle interactingRect = new Rectangle(0,0,width,height);
+        if(lookingUp){
+            interactingRect.x=x;
+            interactingRect.y=y-(height/2);
+            interactingRect.width=width;
+            interactingRect.height=height/2;
+        }else if(lookingDown){
+            interactingRect.x=x;
+            interactingRect.y=y+(height);
+            interactingRect.width=width;
+            interactingRect.height=height/2;
+        }else if(lookingLeft){
+            interactingRect.x=x-(width/2);
+            interactingRect.y=y;
+            interactingRect.width=width/2;
+            interactingRect.height=height;
+        }else{
+            interactingRect.x=x+width;
+            interactingRect.y=y;
+            interactingRect.width=width/2;
+            interactingRect.height=height;
+        }
+
+        g.setColor(Color.GREEN);
+        g.drawRect(interactingRect.x,interactingRect.y,interactingRect.width,interactingRect.height);
+        return interactingRect;
     }
 
     public boolean checkEntityCollisions(float xOffset, float yOffset){

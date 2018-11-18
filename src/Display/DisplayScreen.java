@@ -20,7 +20,7 @@ public class DisplayScreen {
     private URL iconURL;
 
     private String title;
-    private int width, height;
+    public int width, height;
 
     public DisplayScreen(String title, int width, int height){
         this.title = title;
