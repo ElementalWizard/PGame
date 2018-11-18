@@ -15,7 +15,7 @@ public class GameState extends State {
 
     public GameState(Handler handler){
         super(handler);
-        Player player = new Player(handler,100,100,32,32,null);
+        Player player = new Player(handler,300,100,32,32,null);
         StartingRoom FirstRoom = new StartingRoom(handler,player);
         handler.setRoom(FirstRoom);
         FirstRoom.getPointsWirhPlatforms();

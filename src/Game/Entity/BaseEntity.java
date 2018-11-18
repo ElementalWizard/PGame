@@ -14,7 +14,7 @@ public class BaseEntity {
     protected Rectangle bounds;
 
     protected boolean lookingLeft = false,lookingRight = false,lookingUp = false,lookingDown = true;
-
+    protected Color defaultColor = Color.pink;
 
     protected int width, height;
 
@@ -39,7 +39,7 @@ public class BaseEntity {
 
     public void render(Graphics g){
         if(sprite == null){
-            g.setColor(Color.PINK);
+            g.setColor(defaultColor);
             g.fillRect(x,y,DEFAULT_WIDTH,DEFAULT_HEIGHT);
         }
 
@@ -73,6 +73,27 @@ public class BaseEntity {
         g.setColor(Color.GREEN);
         g.drawRect(interactingRect.x,interactingRect.y,interactingRect.width,interactingRect.height);
         return interactingRect;
+    }
+
+    protected Rectangle calculateFightRectangle(Graphics g){
+        Rectangle interactingRect = new Rectangle(x-(width/3),y-(height/3),width+(2*width/3),height+(2*height/3));
+        g.setColor(Color.GREEN);
+        g.drawRect(interactingRect.x,interactingRect.y,interactingRect.width,interactingRect.height);
+        return interactingRect;
+    }
+
+    public String getDirectionLooking(){
+        if(lookingDown){
+            return "Down";
+        }if(lookingLeft){
+            return "Left";
+        }
+        if(lookingUp){
+            return "Up";
+        }
+        return "Right";
+
+
     }
 
     protected boolean checkEntityCollisions(float xOffset, float yOffset){

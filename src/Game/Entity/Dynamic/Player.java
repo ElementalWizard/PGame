@@ -3,6 +3,8 @@ package Game.Entity.Dynamic;
 import Game.Entity.BaseEntity;
 import Game.Entity.Dynamic.Attacks.PhysicalAttack.BaseAttack;
 import Game.Entity.Dynamic.Attacks.SpellsAttack.BaseSpell;
+import Game.GameStates.FightState;
+import Game.GameStates.State;
 import Main.Handler;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -45,10 +47,17 @@ public class Player extends BaseDynamicEntity implements IFighter {
 
     @Override
     public void tick() {
-        super.tick();
-
-        getInput();
-        move();
+        if(!fighting) {
+            super.tick();
+            getInput();
+            move();
+        }else{
+            if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_F)){
+                if(State.getState() instanceof FightState){
+                    ((FightState) State.getState()).leaveFight();
+                }
+            }
+        }
 
 
 
@@ -57,18 +66,32 @@ public class Player extends BaseDynamicEntity implements IFighter {
     @Override
     public void render(Graphics g) {
         super.render(g);
-        for(BaseEntity entity:handler.getRoom().getEm().getENTITIES()){
-            if(entity instanceof IInteractable){
-                Rectangle interactingRect = calculateInteractionRectangle(g);
-                if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_E)&&interactingRect.intersects(new Rectangle(entity.getX(),entity.getY(),entity.getWidth(),entity.getHeight()))){
-                    ((IInteractable) entity).interact(g);
-                }else if(!interactingRect.intersects(new Rectangle(entity.getX(),entity.getY(),entity.getWidth(),entity.getHeight()))){
-                    ((IInteractable) entity).endInteraction();
-                }
+        if(!fighting) {
+            getFightCollision(g);
+            for (BaseEntity entity : handler.getRoom().getEm().getENTITIES()) {
+                if (entity instanceof IInteractable) {
+                    Rectangle interactingRect = calculateInteractionRectangle(g);
+                    if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_E) && interactingRect.intersects(new Rectangle(entity.getX(), entity.getY(), entity.getWidth(), entity.getHeight()))) {
+                        ((IInteractable) entity).interact(g);
+                    } else if (!interactingRect.intersects(new Rectangle(entity.getX(), entity.getY(), entity.getWidth(), entity.getHeight()))) {
+                        ((IInteractable) entity).endInteraction();
+                    }
 
+                }
             }
         }
 
+    }
+
+    private void getFightCollision(Graphics g){
+        for (BaseEntity entity: handler.getRoom().getEm().getENTITIES()) {
+            if(entity instanceof IFighter && !(entity instanceof Player)){
+                Rectangle fightArea = calculateFightRectangle(g);
+                if(fightArea.intersects(new Rectangle(entity.getX(),entity.getY(),entity.getWidth(),entity.getHeight()))){
+                    State.setState(new FightState(handler,((BaseDynamicEntity) entity).minions,(BaseDynamicEntity) entity,this));
+                }
+            }
+        }
     }
 
 
@@ -120,6 +143,16 @@ public class Player extends BaseDynamicEntity implements IFighter {
 
 
     //Getters and setters
+
+
+    public boolean isFighting() {
+        return fighting;
+    }
+
+    public void setFighting(boolean fighting) {
+        this.fighting = fighting;
+    }
+
     @Override
     public int getHealth() {
         return health;

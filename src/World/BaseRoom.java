@@ -15,8 +15,9 @@ public class BaseRoom {
     private Handler handler;
     ArrayList<BasePlatform> platforms = new ArrayList<>();
     private EntityManager em;
+    String roomName;
 
-    protected GameCamera cam;
+    GameCamera cam;
     public ArrayList<Point> pointsWirhPlatforms = new ArrayList<>();
 
     BaseRoom(Handler handler, Player player){
@@ -59,6 +60,13 @@ public class BaseRoom {
         this.em = em;
     }
 
+    public String getRoomName() {
+        return roomName;
+    }
+
+    public ArrayList<BasePlatform> getPlatforms() {
+        return platforms;
+    }
 
     public void getPointsWirhPlatforms(){
 
